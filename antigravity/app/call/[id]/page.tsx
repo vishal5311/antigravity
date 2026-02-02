@@ -70,7 +70,7 @@ export default function CallPage() {
             // 1. Try to create a REAL session via our API
             let sessionData = null;
             try {
-                const sessionResp = await fetch("/api/session", {
+                const sessionResp = await fetch("/api/session/", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
@@ -97,39 +97,15 @@ export default function CallPage() {
             // 3. Request Microphone Access proactively
             // This grants permission to the parent domain so the iframe can inherit it
             try {
+                if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+                    throw new Error("Browser security blocks microphone on IP addresses. Use http://localhost:3000 or enable 'Insecure origins treated as secure' in browser flags.");
+                }
                 const micStream = await navigator.mediaDevices.getUserMedia({ audio: true });
                 // Keep it for a moment then stop to release hardware but keep permission
                 setTimeout(() => micStream.getTracks().forEach(track => track.stop()), 1000);
-            } catch (micErr) {
+            } catch (micErr: any) {
                 console.warn("Microphone permission denied", micErr);
-                setRecordingError("Please allow microphone access for the AI to hear you.");
-            }
-
-            // 4. Initiate Meeting Recording (Optional)
-            if (typeof navigator !== 'undefined' && navigator.mediaDevices && navigator.mediaDevices.getDisplayMedia) {
-                try {
-                    const displayStream = await navigator.mediaDevices.getDisplayMedia({
-                        video: true,
-                        audio: true,
-                    });
-
-                    if (typeof MediaRecorder !== 'undefined') {
-                        const recorder = new MediaRecorder(displayStream, {
-                            mimeType: "video/webm",
-                        });
-
-                        recorderRef.current = recorder
-                        chunksRef.current = []
-                        recorder.ondataavailable = (e: any) => {
-                            if (e.data.size > 0) chunksRef.current.push(e.data)
-                        }
-                        recorder.start()
-                        setIsRecording(true)
-                        displayStream.getVideoTracks()[0].onended = () => stopRecording()
-                    }
-                } catch (recErr) {
-                    console.warn("Recording declined", recErr);
-                }
+                setRecordingError(micErr.message || "Please allow microphone access for the AI to hear you.");
             }
 
             setHasStarted(true);
@@ -142,35 +118,20 @@ export default function CallPage() {
     }
 
     /* -------------------------------------------------- */
-    /* 🛑 STOP + DOWNLOAD FILES                           */
+    /* 🛑 STOP + DOWNLOAD TRANSCRIPT                      */
     /* -------------------------------------------------- */
-    function stopRecording() {
-        const recorder = recorderRef.current
-        if (!recorder || recorder.state === 'inactive') {
-            router.push("/agents")
-            return
+    function stopSession() {
+        // Download transcript if available
+        const transcriptText = messages
+            .map((m: { role: string; text: string }) => `${m.role}: ${m.text}`)
+            .join("\n")
+
+        if (transcriptText) {
+            const textBlob = new Blob([transcriptText], { type: "text/plain" })
+            download(textBlob, `transcript-${id}.txt`)
         }
 
-        recorder.stop()
-        setIsRecording(false)
-
-        recorder.onstop = () => {
-            if (chunksRef.current.length > 0) {
-                const blob = new Blob(chunksRef.current, { type: "video/webm" })
-                download(blob, `meeting-${id}.webm`)
-            }
-
-            const transcriptText = messages
-                .map((m: { role: string; text: string }) => `${m.role}: ${m.text}`)
-                .join("\n")
-
-            if (transcriptText) {
-                const textBlob = new Blob([transcriptText], { type: "text/plain" })
-                download(textBlob, `transcript-${id}.txt`)
-            }
-
-            router.push("/agents")
-        }
+        router.push("/agents")
     }
 
     function download(blob: Blob, filename: string) {
@@ -207,7 +168,7 @@ export default function CallPage() {
                                 >
                                     Enter Live Session
                                 </button>
-                                <p className="mt-6 text-[8px] text-gray-600 uppercase tracking-widest font-black">Powered by Antigravity V1.0</p>
+                                <p className="mt-6 text-[8px] text-gray-600 uppercase tracking-widest font-black">Powered by Muonium AI V1.0</p>
                             </>
                         )}
                     </div>
@@ -227,17 +188,11 @@ export default function CallPage() {
 
                 <div className="absolute top-6 left-6 z-10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-4">
                     <button
-                        onClick={stopRecording}
+                        onClick={stopSession}
                         className="px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-full text-xs font-black uppercase tracking-widest transition-all shadow-2xl border border-white/10"
                     >
                         End Call
                     </button>
-                    {isRecording && (
-                        <div className="px-4 py-2 bg-black/50 backdrop-blur-md rounded-full border border-red-500/30 flex items-center gap-2">
-                            <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
-                            <span className="text-[8px] font-black uppercase tracking-widest text-red-500">Rec Active</span>
-                        </div>
-                    )}
                 </div>
 
                 {recordingError && (
@@ -249,7 +204,6 @@ export default function CallPage() {
                     </div>
                 )}
             </div>
-
 
             {/* TRANSCRIPT PANEL */}
             <div className="w-96 bg-[#0a0a0a] border-l border-white/5 flex flex-col">
@@ -283,7 +237,7 @@ export default function CallPage() {
                 </div>
 
                 <div className="p-6 border-t border-white/5 bg-black/20">
-                    <p className="text-[7px] font-black uppercase tracking-[0.4em] text-gray-800 text-center">Antigravity V1.0</p>
+                    <p className="text-[7px] font-black uppercase tracking-[0.4em] text-gray-800 text-center">Muonium AI V1.0</p>
                 </div>
             </div>
 

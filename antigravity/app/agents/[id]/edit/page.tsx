@@ -85,7 +85,7 @@ export default function EditAgentPage() {
     const handlePreviewCall = async () => {
         setIsLoading(true);
         try {
-            const response = await fetch("/api/session", {
+            const response = await fetch("/api/session/", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

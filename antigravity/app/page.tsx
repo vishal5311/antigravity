@@ -95,7 +95,7 @@ export default function Home() {
       <footer className="relative py-24 bg-black border-t border-white/5">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 flex flex-col items-center">
           <p className="text-gray-700 font-black tracking-[0.5em] uppercase text-xs">
-            &copy; 2026 ANTIGRAVITY AI &bull; BEYOND PRESENCE POWERED
+            &copy; 2026 MUONIUM AI &bull; ANAM AI POWERED
           </p>
         </div>
       </footer>

@@ -96,7 +96,7 @@ export default function AgentDetailPage() {
                                     { label: "Latency", val: "< 500ms" },
                                     { label: "Resolution", val: "1080p HD" },
                                     { label: "Voice", val: "High Fidelity" },
-                                    { label: "Provider", val: "BP AI" }
+                                    { label: "Provider", val: "Anam AI" }
                                 ].map((spec, i) => (
                                     <div key={i} className="p-6 bg-white/5 rounded-2xl border border-white/10">
                                         <p className="text-[10px] font-black text-gray-500 uppercase tracking-widest mb-1">{spec.label}</p>

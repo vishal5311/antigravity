@@ -11,11 +11,16 @@ export default function Navbar() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
                     {/* Logo */}
-                    <Link href="/" className="flex items-center space-x-2 group">
-                        <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center transform group-hover:scale-110 transition-transform">
-                            <span className="text-white font-bold text-lg">A</span>
+                    <Link href="/" className="flex items-center space-x-3 group">
+                        <div className="relative w-10 h-10 group-hover:scale-110 transition-transform">
+                            {/* Ensure you have configured next/image allowed domains if fetching remote, but this is local */}
+                            <img
+                                src="/muonium-logo.png"
+                                alt="Muonium AI Logo"
+                                className="object-contain w-full h-full"
+                            />
                         </div>
-                        <span className="text-white font-bold text-xl">Antigravity</span>
+                        <span className="text-white font-bold text-xl tracking-tight">Muonium AI</span>
                     </Link>
 
                     {/* Desktop Navigation */}

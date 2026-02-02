@@ -9,11 +9,11 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Antigravity - Real-Time AI Video Agents",
-  description: "Launch real-time video AI agents using Beyond Presence avatars. Face-to-face conversations with AI.",
+  title: "Muonium AI - Real-Time AI Video Agents",
+  description: "Launch real-time video AI agents using Anam AI avatars. Face-to-face conversations with Muonium AI.",
   openGraph: {
-    title: "Antigravity - Real-Time AI Video Agents",
-    description: "Turn any photo into a real-time interactive video agent.",
+    title: "Muonium AI - Real-Time AI Video Agents",
+    description: "Turn any photo into a real-time interactive video agent with Muonium AI.",
     type: "website",
   },
 };

@@ -50,7 +50,7 @@ export default function AgentsPage() {
                     <div className="mt-32 grid grid-cols-1 md:grid-cols-3 gap-8">
                         {[
                             { title: "Ultra Low Latency", desc: "Real-time responses for natural human conversation." },
-                            { title: "HD Video Quality", desc: "Beyond Presence powered high-fidelity digital humans." },
+                            { title: "HD Video Quality", desc: "Anam AI powered high-fidelity digital humans." },
                             { title: "Global Scale", desc: "Available 24/7 across all time zones and devices." }
                         ].map((f, i) => (
                             <div key={i} className="p-8 bg-[#111] rounded-3xl border border-white/5">
@@ -65,7 +65,7 @@ export default function AgentsPage() {
             {/* Minimal Footer */}
             <footer className="py-12 border-t border-white/5 text-center">
                 <p className="text-gray-600 font-medium tracking-wide">
-                    &copy; 2026 ANTIGRAVITY AI. ALL RIGHTS RESERVED.
+                    &copy; 2026 MUONIUM AI. ALL RIGHTS RESERVED.
                 </p>
             </footer>
         </div>
