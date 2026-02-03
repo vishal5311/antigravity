@@ -11,26 +11,6 @@ export interface Agent {
 
 export const AGENTS: Agent[] = [
     {
-        id: "jerome-office",
-        name: "Jerome Office",
-        avatar_key: "9f1a6aed-99fc-4fb5-a3f4-8206c2d8d194",
-        role: "Strategic Consultant",
-        prompt: "I am your strategic AI consultant, ready to help you optimize your business operations.",
-        voice: "professional",
-        language: "en",
-        image: "/avatars/jerome-office.jpg"
-    },
-    {
-        id: "nelly",
-        name: "Nelly",
-        avatar_key: "6af802c4-47c6-4b95-8214-77512f58f32a",
-        role: "Communications Lead",
-        prompt: "I am your digital brand ambassador, here to represent your vision with high fidelity and real-time interaction.",
-        voice: "friendly",
-        language: "en",
-        image: "/avatars/nelly.jpg"
-    },
-    {
         id: "jerome-medical",
         name: "Jerome Medical",
         avatar_key: "78fbef1c-47e4-4714-818d-200899f88b05",
@@ -59,6 +39,36 @@ export const AGENTS: Agent[] = [
         voice: "friendly",
         language: "en",
         image: "/avatars/yuruo-office.jpg"
+    },
+    {
+        id: "maya",
+        name: "Maya",
+        avatar_key: "f5ef2561-0eee-4567-88ab-25f4e831f0dc",
+        role: "Digital Assistant",
+        prompt: "I am Maya, your helpful digital assistant.",
+        voice: "friendly",
+        language: "en",
+        image: "/avatars/nelly.jpg" // Using placeholder
+    },
+    {
+        id: "saranya",
+        name: "Saranya",
+        avatar_key: "a40e20cd-7dfa-4c56-b4e9-b19f0905ca20",
+        role: "Creative Guide",
+        prompt: "I am Saranya, here to guide your creative process.",
+        voice: "friendly",
+        language: "en",
+        image: "/avatars/yuruo-office.jpg" // Using placeholder
+    },
+    {
+        id: "tanya",
+        name: "Tanya",
+        avatar_key: "3e1096bd-f11c-41ea-a0bb-a809a6892004",
+        role: "Support Specialist",
+        prompt: "I am Tanya, ready to assist with any support needs.",
+        voice: "professional",
+        language: "en",
+        image: "/avatars/jerome-office.jpg" // Using placeholder
     }
 ];
 
